@@ -2,12 +2,12 @@
 
 module.exports = {
   app: {
-    title: 'MEAN.JS',
+    title: 'HISCOM',
     description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
     keywords: 'mongodb, express, angularjs, node.js, mongoose, passport',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 4000,
   host: process.env.HOST || '0.0.0.0',
   templateEngine: 'swig',
   // Session Cookie settings
@@ -23,7 +23,7 @@ module.exports = {
     secure: false
   },
   // sessionSecret should be changed for security measures and concerns
-  sessionSecret: process.env.SESSION_SECRET || 'MEAN',
+  sessionSecret: process.env.SESSION_SECRET || 'HISCOM',
   // sessionKey is set to the generic sessionId key used by PHP applications
   // for obsecurity reasons
   sessionKey: 'sessionId',
