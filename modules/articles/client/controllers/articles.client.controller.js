@@ -5,9 +5,9 @@
     .module('articles')
     .controller('ArticlesController', ArticlesController);
 
-  ArticlesController.$inject = ['$scope', '$state', 'articleResolve', 'Authentication'];
+  ArticlesController.$inject = ['$scope', '$state', '$http', 'articleResolve', 'Authentication', 'UploaderService'];
 
-  function ArticlesController($scope, $state, article, Authentication) {
+  function ArticlesController($scope, $state, $http, article, Authentication, UploaderService) {
     var vm = this;
 
     vm.article = article;
@@ -16,6 +16,12 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
+    //var isShowUploads = false;
+    vm.isShowUploads = false; //isShowUploads;
+    vm.showUploads = showUploads;
+
+    vm.listImages =[];
 
     // Remove existing Article
     function remove() {
@@ -47,6 +53,38 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+    }
+
+    function showUploads() {
+      vm.isShowUploads = !vm.isShowUploads;
+      if (vm.isShowUploads === true)
+          setUploaderParams();
+
+      if (vm.isShowUploads === false)  
+         vm.listImages = UploaderService.getListFiles(); 
+
+      console.log("vm.listImages = " + vm.listImages);
+
+      console.log("isShowUploads = " + vm.isShowUploads);
+    }
+
+    function setUploaderParams() {
+      var data = { "dest": './modules/articles/client/img/' };
+
+      var uploaderParams = {
+          "dest": './modules/articles/client/img/', // Profile upload destination path
+          "limits": {
+            "fileSize": 5*1024*1024 // Max file size in bytes (1 MB)
+          }
+        };
+
+        $http.put('/api/uploader?', uploaderParams)
+        .success(function (data, status, headers) {
+            console.log("success");
+        })
+        .error(function (data, status, header, config) {
+          console.log("Error");
+        });
     }
   }
 })();

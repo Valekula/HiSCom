@@ -16,6 +16,18 @@
           <label class="control-label" for="content">Content</label>
           <textarea name="content" data-ng-model="vm.article.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
         </div>
+
+        <div class="form-group">
+          <button  class="btn btn-default" ng-click="vm.showUploads()">{{vm.isShowUploads ? 'Close Uploads' : 'Add Pictures'}}</button>
+          <div ng-show = "vm.isShowUploads" data-ng-include src='"/modules/uploader/client/views/uploader.client.view.html"'></div>
+        </div>
+
+        <ul >
+          <li ng-repeat="image in vm.listImages " class="thumbnail">
+            <a href="{{image}}" class="thumb"><img ng-src={{image}} alt="aaaa"></a>
+          </li>
+        </ul>
+
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.article._id ? 'Update' : 'Create'}}</button>
         </div>
@@ -24,5 +36,6 @@
         </div>
       </fieldset>
     </form>
+    
   </div>
 </section>
